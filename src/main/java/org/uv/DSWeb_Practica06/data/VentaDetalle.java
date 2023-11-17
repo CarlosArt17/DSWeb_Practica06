@@ -26,21 +26,17 @@ import javax.persistence.Table;
 public class VentaDetalle implements Serializable {
 
     @Id
-    @GeneratedValue(generator = "venta_detalle_iddetalleventa_seq", strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "venta_detalle_iddetalleventa_seq", sequenceName = "venta_detalle_iddetalleventa_seq", initialValue = 1, allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "iddetalleventa")
     private Long idDetalleVenta;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idVenta", referencedColumnName = "idventa") // Ajustado para que coincida con el nombre en la entidad Venta
+    @JoinColumn(name = "idVenta", referencedColumnName = "idventa")
     private Venta venta;
-    
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idProducto", referencedColumnName = "id_producto")
-    private Producto producto;
 
-    @Column(name = "idproducto")
-    private Long idProducto;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_producto", referencedColumnName = "id_producto")
+    private Producto producto;
 
     @Column(name = "precio")
     private BigDecimal precio;
@@ -51,7 +47,6 @@ public class VentaDetalle implements Serializable {
     @Column(name = "cantidad")
     private int cantidad;
 
-    // Getters y setters
     public Long getIdDetalleVenta() {
         return idDetalleVenta;
     }
@@ -68,12 +63,12 @@ public class VentaDetalle implements Serializable {
         this.venta = venta;
     }
 
-    public Long getIdProducto() {
-        return idProducto;
+    public Producto getProducto() {
+        return producto;
     }
 
-    public void setIdProducto(Long idProducto) {
-        this.idProducto = idProducto;
+    public void setProducto(Producto producto) {
+        this.producto = producto;
     }
 
     public BigDecimal getPrecio() {

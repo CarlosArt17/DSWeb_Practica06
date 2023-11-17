@@ -47,7 +47,7 @@ public class Empleado implements Serializable {
 //    @OneToMany(fetch = FetchType.LAZY, mappedBy = "empleado")
 //    private List<Venta> ventas = new ArrayList<>(); // Inicializar la lista para evitar problemas de null
 
-    // Getters y setters
+   
     public Long getIdEmpleado() {
         return idEmpleado;
     }

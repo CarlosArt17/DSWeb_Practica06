@@ -38,34 +38,30 @@ public class VentaDetalleController {
     private RepositoryVenta repositoryVenta;
 
     @Autowired
-    private RepositoryProducto repositoryProducto; // Asegúrate de tener un repositorio para Producto
+    private RepositoryProducto repositoryProducto;
 
     @PostMapping
     public ResponseEntity<VentaDetalle> crearDetalleVenta(@RequestBody VentaDetalle ventaDetalle) {
-        // Asegúrate de que la venta asociada exista en la base de datos
         Optional<Venta> optVenta = repositoryVenta.findById(ventaDetalle.getVenta().getIdVenta());
         if (optVenta.isPresent()) {
-            // Asocia la venta al detalle de venta
+
             ventaDetalle.setVenta(optVenta.get());
 
-            // Asegúrate de que el producto asociado exista en la base de datos
             Optional<Producto> optProducto = repositoryProducto.findById(ventaDetalle.getProducto().getIdProducto());
             if (optProducto.isPresent()) {
-                // Asocia el producto al detalle de venta
+
                 ventaDetalle.setProducto(optProducto.get());
 
-                // Guarda el detalle de venta en la base de datos
                 VentaDetalle detalleRes = ventaDetalleRepository.save(ventaDetalle);
                 return ResponseEntity.ok(detalleRes);
             } else {
-                // El producto no existe
+
                 return ResponseEntity.notFound().build();
             }
         } else {
-            // La venta no existe
+
             return ResponseEntity.notFound().build();
         }
     }
-
 
 }
